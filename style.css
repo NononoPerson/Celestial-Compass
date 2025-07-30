@@ -59,3 +59,12 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(106, 27, 154, 0.3);
 }
+.color-circle {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-left: 8px;
+  vertical-align: middle;
+  border: 1px solid #00000020;
+}
