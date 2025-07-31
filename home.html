@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
 <head><title>Your Zodiac Reading</title><link rel='stylesheet' href='style.css'></head>
 <body>
   <div class='traits-box'>
@@ -9,7 +11,20 @@
     <p id='advice'></p>
     <p id='horoscope'></p>
     <p id='lucky_number'></p>
-    <p id='lucky_color'></p>
+    <p id='lucky_metal'></p>
+    <p id='planetary_connection'></p>
+    <div id="luckyColorWrapper">
+      <p id="lucky_color">Lucky_Color:</p>
+      <div id="colorCircle"></div>
+      <!-- Traits Box Section -->
+<div id="traits-box">
+  <!-- Existing trait content goes here -->
+</div>
+<!-- Logout Button Section -->
+<div class="centered-logout">
+</div>
+    </div>
+
     <p id='lucky_day'></p>
     <p id='inauspicious_time'></p>
     <p id='auspicious_time'></p>
@@ -17,4 +32,11 @@
   <a href='logout.html'>Logout</a>
 </body>
 <script src='script.js'></script>
+<!-- Navigation Button to ZodiacVerseGpt -->
+<div class="centered-nav">
+  <a href="/zodiacgpt" class="zodiacgpt-btn">
+    🔮 Go to ZodiacVerseGpt
+  </a>
+</div>
+
 </html>
