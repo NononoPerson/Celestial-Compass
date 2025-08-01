@@ -22,8 +22,10 @@ function storeUserInfo() {
   const time = document.getElementById('time').value;
   const password = document.getElementById('password').value;
   localStorage.setItem('user', JSON.stringify({ name, dob, time, password }));
-  return true;
+  window.location.href = 'login.html';
+  return false;
 }
+
 
 function verifyUser() {
   const loginName = document.getElementById('nameLogin').value;
@@ -92,12 +94,21 @@ function showFortune() {
 }
 
 window.onload = function () {
+  // Clear any leftover inputs from previous use
+  const nameField = document.getElementById('nameLogin');
+  const passwordField = document.getElementById('passwordLogin');
+  if (nameField) nameField.value = '';
+  if (passwordField) passwordField.value = '';
+
+  // If user is stored in localStorage, show zodiac info
   const user = JSON.parse(localStorage.getItem('user'));
   if (!user) return;
+
   const date = new Date(user.dob);
   const month = date.getMonth() + 1;
   const day = date.getDate();
   const zodiacInfo = getZodiacSign(month, day);
+
   document.getElementById('userName').textContent = 'Hello, ' + user.name;
   document.getElementById('zodiacSign').textContent = 'Your Zodiac Sign: ' + zodiacInfo.sign;
   document.getElementById('zodiacMeaning').textContent = 'Traits: ' + zodiacInfo.meaning;

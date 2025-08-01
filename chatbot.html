@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Zodiac Chatbot</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #chatbox {
+      width: 90%;
+      max-width: 600px;
+      height: 500px;
+      overflow-y: auto;
+      background: rgba(255,255,255,0.9);
+      padding: 20px;
+      border-radius: 10px;
+      border: 2px solid #000;
+      margin-bottom: 10px;
+    }
+    .message {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    input, button {
+      font-weight: bold;
+    }
+       a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #000;
+      margin-top: 10px;
+      background-color: #6c63ff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    a:hover {
+    background-color: #574b90;
+    color: #fff;
+}
+  </style>
+</head>
+<body>
+  <h3>ZodiacVerseGpt</h3>
+  <div id="chatbox"></div>
+  <input type="text" id="userInput" placeholder="Ask about zodiac signs..." onkeypress="if(event.key === 'Enter') sendMessage()">
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const qa = {
+  "What are the personality traits of Aries?": "Aries are courageous, determined, confident, and enthusiastic.",
+  "What are the strengths of Taurus individuals?": "Taurus is reliable, patient, practical, and responsible.",
+  "Describe Gemini in a few words.": "Gemini is adaptable, outgoing, intelligent, and curious.",
+  "What defines Cancer's emotional nature?": "Cancer is deeply intuitive, sentimental, and protective.",
+  "What makes Leo a natural leader?": "Leo is confident, charismatic, generous, and born to lead.",
+  "What is Virgo most known for?": "Virgo is analytical, kind, hardworking, and detail-oriented.",
+  "What are Libra’s main characteristics?": "Libra is diplomatic, fair, gracious, and seeks harmony.",
+  "What drives Scorpio individuals?": "Scorpio is passionate, resourceful, brave, and fiercely loyal.",
+  "How would you describe a Sagittarius?": "Sagittarius is adventurous, optimistic, independent, and philosophical.",
+  "What makes Capricorn stand out?": "Capricorn is disciplined, ambitious, practical, and wise.",
+  "What defines Aquarius in astrology?": "Aquarius is innovative, independent, humanitarian, and intellectual.",
+  "What are Pisces best known for?": "Pisces is compassionate, artistic, gentle, and wise.",
+  "Which zodiac sign is ruled by Mars?": "Aries is ruled by Mars, the planet of action and desire.",
+  "What sign is ruled by Venus?": "Taurus and Libra are both ruled by Venus, the planet of beauty and love.",
+  "What element is Leo associated with?": "Leo belongs to the Fire element.",
+  "Which signs are considered Water signs?": "Cancer, Scorpio, and Pisces are Water signs.",
+  "Which are the Earth signs?": "Taurus, Virgo, and Capricorn are Earth signs.",
+  "Name the Air signs.": "Gemini, Libra, and Aquarius are the Air signs.",
+  "Which signs are known for being emotional?": "Water signs — Cancer, Scorpio, and Pisces — are the most emotional.",
+  "Which signs are most logical?": "Air signs like Gemini, Libra, and Aquarius are known for logic and intellect.",
+  "Which zodiac sign is the most adventurous?": "Sagittarius is the most adventurous and loves exploring.",
+  "Who is the most romantic zodiac sign?": "Pisces is considered the most romantic and dreamy.",
+  "What zodiac signs are compatible with Leo?": "Aries, Sagittarius, and Libra are compatible with Leo.",
+  "Who is Taurus most compatible with?": "Taurus is most compatible with Virgo and Capricorn.",
+  "Which signs are known for leadership?": "Leo, Aries, and Capricorn are natural-born leaders.",
+  "Which zodiac signs are most creative?": "Pisces, Leo, and Aquarius are highly creative.",
+  "Which signs love peace and balance?": "Libra is the sign most associated with peace and balance.",
+  "What makes Virgo an excellent analyst?": "Virgo is methodical, observant, and pays close attention to detail.",
+  "Why is Scorpio called mysterious?": "Scorpio is emotionally deep, private, and hard to read.",
+  "Why is Aquarius seen as eccentric?": "Aquarius is unconventional, progressive, and thinks outside the box.",
+  "What sign is ruled by the Moon?": "Cancer is ruled by the Moon, governing emotions and instincts.",
+  "What planet rules Sagittarius?": "Jupiter, the planet of expansion and luck, rules Sagittarius.",
+  "What is the most intuitive sign?": "Pisces is the most intuitive and spiritually aware sign.",
+  "Which signs are best at communication?": "Gemini, Virgo, and Libra are known for excellent communication skills.",
+  "Who are the perfectionists of the zodiac?": "Virgo is the most perfectionist, always striving for flawlessness.",
+  "Which signs are most loyal in relationships?": "Taurus, Scorpio, and Capricorn are known for deep loyalty.",
+  "Who is the social butterfly of the zodiac?": "Gemini is the ultimate social butterfly — chatty and witty.",
+  "Which signs are homebodies?": "Cancer and Taurus love comfort and staying at home.",
+  "Which zodiac signs are independent?": "Aquarius, Aries, and Sagittarius value independence greatly.",
+  "Who is the dreamer among the zodiac signs?": "Pisces is the dreamer — idealistic, imaginative, and gentle.",
+  "Which sign is most detail-oriented?": "Virgo pays attention to the smallest details in everything.",
+  "What sign is the life of the party?": "Leo is the entertainer, center-stage, and always shining.",
+  "Which signs are natural caregivers?": "Cancer and Pisces are nurturing and empathetic caregivers.",
+  "Who is the philosopher among the signs?": "Sagittarius seeks meaning, truth, and philosophical exploration.",
+  "Which sign is the hardest worker?": "Capricorn is the most hardworking and goal-driven.",
+  "What makes Libra indecisive?": "Libra sees all sides and wants to be fair, causing delays in decision-making.",
+  "Who holds grudges the longest?": "Scorpio never forgets and finds it hard to forgive quickly.",
+  "Which sign is known for being stubborn?": "Taurus is the most stubborn and resistant to change.",
+  "Which sign is always on the move?": "Gemini is fast-paced, curious, and always shifting.",
+  "What are fire signs known for?": "Fire signs — Aries, Leo, and Sagittarius — are passionate and bold.",
+  "What are earth signs known for?": "Earth signs are stable, grounded, and practical.",
+  "What defines air signs?": "Air signs are intellectual, social, and love ideas.",
+  "What are water signs like emotionally?": "Water signs are deeply emotional, sensitive, and nurturing.",
+  "What is the cusp in astrology?": "A cusp occurs when someone is born near the transition between two zodiac signs.",
+  "What is a rising sign?": "Your rising sign is the zodiac sign that was rising on the eastern horizon at your time of birth.",
+  "How does the moon sign affect you?": "The moon sign governs your inner emotions, reactions, and subconscious patterns.",
+  "What is a sun sign?": "Your sun sign is based on your birth date and represents your core personality.",
+  "How is a birth chart made?": "A birth chart is calculated using your date, time, and place of birth.",
+  "Why is time of birth important in astrology?": "Time of birth determines your rising sign and house placements.",
+  "How does astrology influence relationships?": "Astrology shows emotional compatibility, communication style, and love language.",
+  "What is synastry?": "Synastry is the comparison of two birth charts to assess relationship compatibility.",
+  "What is a natal chart?": "A natal chart is a snapshot of the sky at your exact birth moment.",
+  "What are planetary aspects in astrology?": "Aspects are angles between planets that influence behavior and experiences.",
+  "What is retrograde in astrology?": "A retrograde planet appears to move backward and symbolizes reflection and delays.",
+  "Why is Mercury retrograde important?": "Mercury retrograde affects communication, travel, and technology.",
+  "When is Mercury retrograde in 2025?": "In 2025, Mercury retrograde occurs in April, August, and December.",
+  "Which signs are most affected by Mercury retrograde?": "Gemini and Virgo (ruled by Mercury) are most affected.",
+  "What is the North Node in astrology?": "The North Node represents your soul’s karmic path and life lessons.",
+  "What is the South Node?": "The South Node shows past-life tendencies and comfort zones.",
+  "What does Saturn return mean?": "Saturn return marks maturity and life restructuring at around 29 years old.",
+  "What is your zodiac sign if born on July 22?": "You are a Cancer, though it's near the cusp of Leo.",
+  "Which sign is December 5th?": "December 5th falls under Sagittarius.",
+  "Is October 3rd a Libra?": "Yes, October 3rd is a Libra.",
+  "Is April 15 an Aries or Taurus?": "April 15 is firmly in Aries.",
+  "When does Scorpio season start?": "Scorpio season begins around October 23rd.",
+  "When does Pisces season end?": "Pisces season ends around March 20th.",
+  "Who are cusp babies?": "Cusp babies are born near the edge between two signs and may feel both energies.",
+  "What is Chiron in astrology?": "Chiron is the 'wounded healer' — your deepest wound and how to heal it.",
+  "What is the zodiac age?": "The zodiac age refers to the astrological era influenced by a sign (e.g., Age of Aquarius).",
+  "What is the current astrological age?": "We are transitioning into the Age of Aquarius."
+};
+
+    const chatbox = document.getElementById("chatbox");
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const question = input.value.trim();
+      if (!question) return;
+
+      const userMsg = document.createElement("div");
+      userMsg.className = "message";
+      userMsg.textContent = "You: " + question;
+      chatbox.appendChild(userMsg);
+
+      const answer = qa[question] || "Sorry, I don’t have an answer for that yet.";
+      const botMsg = document.createElement("div");
+      botMsg.className = "message";
+      botMsg.textContent = "Bot: " + answer;
+      chatbox.appendChild(botMsg);
+
+      chatbox.scrollTop = chatbox.scrollHeight;
+      input.value = "";
+    }
+  </script>
+
+  <BR>
+  <a href="logout.html" id="logoutBtn">Logout</a>
+</body>
+</html>
