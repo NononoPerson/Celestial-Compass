@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-align: center;
 }
 
 /* Body styling */
@@ -32,15 +33,14 @@ h1, h2 {
 }
 h3{text-align: center;
   margin-bottom: 20px;
-  color: #ffffff;
+  color: #000000;
   font-size: 24px;}
 #back{
   font-size: 16px;
   text-align: center;
   margin-top: 10px;
-  color: #333;
+  color: #000000;
 }
-
 /* Navigation links
 #home,
 a {
@@ -74,7 +74,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
-  color: black;
+  color: rgb(0, 0, 0);
 }
 input:focus {
   border-color: #000;
@@ -87,7 +87,7 @@ button {
   padding: 12px;
   background-color: #6c63ff;
   border: none;
-  color: white;
+  color: rgb(255, 255, 255);
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
